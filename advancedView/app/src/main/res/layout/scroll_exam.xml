@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_weight="1">
+      <ImageView
+        android:id="@+id/img01"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+          android:layout_gravity="center"
+        android:src="@drawable/ben" />
+    </ScrollView>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center">
+
+    <Button
+        android:id="@+id/btnchangeup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▲"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:onClick="upclick"/>
+
+    <Button
+        android:id="@+id/btnchangedown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▼"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:onClick="bottomclick"/>
+
+</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_weight="1">
+      <ImageView
+        android:id="@+id/img02"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:src="@drawable/ben"/>
+    </ScrollView>
+
+</LinearLayout>

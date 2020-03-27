@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".frame_test"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFC107">
+
+        <Button
+            android:id="@+id/loginframe"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/menu1"
+        android:layout_weight="1"/>
+        <Button
+            android:id="@+id/joinframe"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/menu2"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/detailframe"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/menu3"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/gradient"
+        android:visibility="visible"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu1"
+            android:textSize="50dp">
+        </TextView>
+
+        <EditText
+            android:id="@+id/loginid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="id입력"></EditText>
+        <EditText
+            android:id="@+id/loginpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="password입력"></EditText>
+
+        <Button
+            android:id="@+id/loginbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"/>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/join"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFC5CC"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu2"
+            android:textSize="50dp">
+        </TextView>
+        <EditText
+            android:id="@+id/joinname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="이름입력"></EditText>
+
+        <EditText
+            android:id="@+id/joinid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="id입력"></EditText>
+        <EditText
+            android:id="@+id/joinpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="password입력"></EditText>
+
+        <Button
+            android:id="@+id/joinbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/menu2"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#C3F1F1"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원정보"
+            android:textSize="50dp">
+        </TextView>
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:src="@drawable/flowers"
+            android:layout_gravity="center"></ImageView>
+
+        <TextView
+            android:id="@+id/namearea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+           >
+        </TextView>
+
+
+
+
+    </LinearLayout>
+
+</FrameLayout>
+
+</LinearLayout>

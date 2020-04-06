@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mylist_data">
+        <item>김민정</item>
+        <item>이영주</item>
+        <item>성민재</item>
+        <item>윤소윤</item>
+        <item>유명인</item>
+        <item>이준성</item>
+        <item>백승재</item>
+        <item>김서연</item>
+        <item>오성식</item>
+        <item>곽혜란</item>
+        <item>이정윤</item>
+
+    </string-array>
+
+
+
+</resources>

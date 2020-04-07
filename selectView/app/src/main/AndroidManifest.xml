@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".CustomRowTestActivity">
+        <activity android:name=".view.activity.SelectView_ExamActity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

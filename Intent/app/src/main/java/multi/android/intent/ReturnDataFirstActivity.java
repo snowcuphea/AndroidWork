@@ -1,7 +1,5 @@
 package multi.android.intent;
 
-
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -11,10 +9,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ReturnDataFirstActivity extends AppCompatActivity
 			implements OnClickListener{
+    public static final int SECOND_BUTTON = 10;
     /** Called when the activity is first created. */
 	Button bt1;
 	Button bt2;
@@ -40,8 +40,33 @@ public class ReturnDataFirstActivity extends AppCompatActivity
 		    Intent intent  = new Intent();
             intent.putExtra("info","첫 번째 액티비티가 넘기는 메시지");
             startActivity(intent);
-        }
+        }else if(v.getId()==R.id.call2){
+		    //새로운 액티비티를 실행해서 작업을 완료한 후 되돌아오는 작업을 수행
+            Intent intent = new Intent(this,ReturnDataSecondActivity.class);
+            intent.putExtra("code","call2");
+            intent.putExtra("data","첫 번째 액티비티가 넘기는 메시지");
+            //되돌아 올 때 사용되는 메소드: startActivityForResult
+            //인텐트객체와 함께 request code를 넘긴다.(사용자정의로 아무거나 int형으로 넘김)
+            startActivityForResult(intent,SECOND_BUTTON);
+
+		}
 	}
+	//인텐트를 통해서 액티비티를 호출하고 되돌아오는 경우 메소드를 추가해서 작업한다.
+    //onActivityResult를 호출한다. - 되돌아와서 마무리해야 하므로
+    //onActivityResult를 오버라이딩해서 처리할 작업을 구현
+    //requestCode - 요청을 했던 뷰를 구분하기 위한 코드
+    //resultCode - 결과 코드
+    //data - intent객체
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if(requestCode==SECOND_BUTTON){
+            if(resultCode==RESULT_OK){
+                String returndata = intent.getStringExtra("second");
+                Toast.makeText(this,returndata,Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }
 
 

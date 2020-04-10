@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".filesystem.SimpleNote"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/openbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="열기"
+            android:onClick="openmemo"/>
+
+        <Button
+            android:id="@+id/savebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="저장하기"
+            android:onClick="savememo"/>
+
+        <Button
+            android:id="@+id/newbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="새 파일"
+            android:layout_gravity="right"
+            android:onClick="newmemo"/>
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/memotxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+
+</LinearLayout>

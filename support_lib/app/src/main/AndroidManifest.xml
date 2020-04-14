@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="multi.android.support_lib">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,14 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fragment.MainActivity"></activity>
-        <activity android:name=".fragment.exam.FragmentMain">
+        <activity android:name=".viewpager.exam.MapFrag"></activity>
+        <activity android:name=".fragment.FragmentTestMain2" />
+        <activity android:name=".fragment.exam.ViewFragment" />
+        <activity android:name=".fragment.MainActivity" />
+        <activity android:name=".viewpager.exam.ViewFragment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDrbVhjPydM5hfgHl086BOniIk2OdAoRf4" />
+
     </application>
+
 
 </manifest>

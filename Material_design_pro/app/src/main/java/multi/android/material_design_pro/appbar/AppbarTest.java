@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class AppbarTest extends AppCompatActivity {
     FloatingActionButton fab;
     ListView listView;
     ArrayList<String> datalist = new ArrayList<String>();
+    BottomAppBar bottomAppBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class AppbarTest extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         app_bar_image = findViewById(R.id.app_bar_image);
         toolbarLayout = findViewById(R.id.toolbar_layout);
+        bottomAppBar = findViewById(R.id.bottom_bar);
         fab = findViewById(R.id.fab);
         listView = findViewById(R.id.mylistview);
 
@@ -52,6 +55,10 @@ public class AppbarTest extends AppCompatActivity {
 
         toolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
         toolbarLayout.setExpandedTitleGravity(Gravity.RIGHT+Gravity.TOP);//오른쪽 위. 상수라서 +로 연결
+
+        bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
+        bottomAppBar.setFabCradleRoundedCornerRadius(100);
+        bottomAppBar.setFabCradleMargin(20);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,

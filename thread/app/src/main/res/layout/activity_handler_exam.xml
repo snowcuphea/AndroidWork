@@ -5,19 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    >
+    tools:context=".HandlerExam">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rlist"
+    <TextView
+        android:id="@+id/textview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rrlist"
+        android:layout_height="300dp"
+        android:layout_margin="30dp"
+        android:background="#00FFFF"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    <Button
+        android:id="@+id/btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:onClick="btnHandy"
+        android:text="숫자 출력하기"
         />
+
 
 </LinearLayout>

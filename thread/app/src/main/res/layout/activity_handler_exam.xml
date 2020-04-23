@@ -13,7 +13,8 @@
         android:layout_height="300dp"
         android:layout_margin="30dp"
         android:background="#00FFFF"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_gravity="center"/>
     <Button
         android:id="@+id/btn"
         android:layout_width="match_parent"

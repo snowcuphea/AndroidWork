@@ -15,7 +15,7 @@ import multi.android.material_design_pro2.R;
 public class CircleImageRecyclerTest extends AppCompatActivity {
 
     RecyclerView list;
-    RecyclerView last;
+
 
 
     @Override
@@ -23,7 +23,6 @@ public class CircleImageRecyclerTest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circle_image_recycler_test);
         list = findViewById(R.id.rlist);
-        last = findViewById(R.id.rrlist);
         CircleItem item;
         List<CircleItem> recycler_simple_data = new ArrayList<CircleItem>();
 
@@ -49,11 +48,6 @@ public class CircleImageRecyclerTest extends AppCompatActivity {
 
         list.setAdapter(myadapter);
 
-        last.setHasFixedSize(true);
-
-        last.setLayoutManager(manager);
-
-        last.setAdapter(myadapter);
 
 
 

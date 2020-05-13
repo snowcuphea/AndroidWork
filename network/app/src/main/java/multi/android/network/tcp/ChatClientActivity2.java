@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,13 +21,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import multi.android.network.R;
 
-public class ChatClientActivity extends AppCompatActivity {
+public class ChatClientActivity2 extends AppCompatActivity {
     ListView msg_listview ;
     ListView user_listview ;
     EditText msg_edit;
@@ -56,13 +58,14 @@ public class ChatClientActivity extends AppCompatActivity {
         msg_edit = findViewById(R.id.msg_edit);
        /* msg = new ArrayList<ChatMessage>();*/
         msg = new ArrayList<String>();
-        msgadapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, msg);
-        useradapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, userlist);
+        msgadapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, msg);
+        useradapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, userlist);
         msg_listview.setAdapter(msgadapter);
         user_listview.setAdapter(useradapter);
         asyncTaskExam = new AsyncTaskExam();
     }
-	//닉네임 입력 버튼을 누르면 호출되는 메소드
     public void nickname_input(View view){
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(this);
@@ -74,23 +77,27 @@ public class ChatClientActivity extends AppCompatActivity {
         builder.setView(dialogView);
         builder.show();
     }
-
-	//서버저속버튼을 누르면 호출되는 메소드
     public void server_connect(View view){
 
         asyncTaskExam.execute(10,20);
     }
     public void btn_send(View view){
-     
+      /*  asyncTaskExam.sendMsg("chatting/"+msg_edit.getText().toString()
+                +"/"+nickname);*/
       sendMessage("chatting/"+msg_edit.getText().toString()
               +"/"+nickname);
       msg_edit.setText("");
     }
     public void sendMessage(final String message) {
-      //메시지를 서버에 전송할 수 있도록 작성하세요
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                pw.println(message);
+                pw.flush();
+            }
+        }).start();
     }
 
-	//nickname을 다이얼로그를 통해서 입력받도록 구현한 리스너
     class DialogListener implements DialogInterface.OnClickListener{
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -106,8 +113,61 @@ public class ChatClientActivity extends AppCompatActivity {
     class AsyncTaskExam extends AsyncTask<Integer,String,String> {
         @Override
         protected String doInBackground(Integer... integers) {
-           //서버와 접속하여 서버가 보내오는 메시지를 읽을 수 있도록 작성하세요
-            return "";
+            try {
+                socket = new Socket("70.12.116.50", 12345);
+                if(socket!=null){
+                    ioWork();
+                }
+                sendMsg(nickname);
+                userlist.add(nickname);
+
+                Thread t1 = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(true){
+                            String msg;
+                            try {
+                                msg = br.readLine();
+                                Log.d("chat","서버로 부터 수신된 메시지>>"
+                                        +msg);
+                                filteringMsg(msg);
+                            } catch (IOException e) {
+                                //1.=====서버쪽에서 연결이 끊어지는 경우
+                                //먼저 사용한 자원을 반납한다.========
+                                try {
+                                    is.close();
+                                    isr.close();
+                                    br.close();
+                                    os.close();
+                                    pw.close();
+                                    socket.close();
+                                    /*AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+
+                                    builder.setTitle("알림").setMessage("서버와 접속이 끊어졌습니다.");
+
+                                    AlertDialog alertDialog = builder.create();
+
+                                    alertDialog.show();*/
+                                } catch (IOException e1) {
+                                    // TODO Auto-generated catch block
+                                    e1.printStackTrace();
+                                }
+                                break;
+                            }
+
+                        }
+                    }
+                });
+                t1.start();
+
+                //taChat.append(msg);
+
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return  "";
         }
         public void ioWork(){
             try {
@@ -134,24 +194,50 @@ public class ChatClientActivity extends AppCompatActivity {
             String message = token.nextToken();
             System.out.println("프로토콜:"+protocol+",메시지:"+message);
             if(protocol.equals("new")){
+                //새로운 사용자가 접속하면 nickname리스트를 저장하는 벡터에 추가
                 userlist.add(message);
-				//내용을 추가하세요.
+               /* publishProgress(userlist);
+                lstconnect.setListData(userlist);*/
+                publishProgress("new","msg","********"+message+
+                        "님이 입장하셨습니다.*******\n");
             }else if(protocol.equals("old")){
                 userlist.add(message);
-				 //내용을 추가하세요.
+                //lstconnect.setListData(userlist);
+                publishProgress("old","msg",message);
             }else if(protocol.equals("chatting")){
                 String nickname = token.nextToken();
-               //내용을 추가하세요.
+                publishProgress("chatting",nickname,message);
             }else if(protocol.equals("out")){
                 userlist.remove(message);
-              //내용을 추가하세요.
+               // lstconnect.setListData(userlist);
+                publishProgress("out",nickname,"님이 퇴장하셨습니다.");
             }
 
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
-           //코드를 추가하세요
+            super.onProgressUpdate(values);
+            String state = values[0];
+            if(state.equals("new")){
+               // userlist.add(values[2]);
+                useradapter.notifyDataSetChanged();
+            }else if(state.equals("old")){
+                useradapter.notifyDataSetChanged();
+            }else if(state.equals("chatting")){
+               /* ChatMessage message = new ChatMessage();
+                message.nickname = values[0];
+                message.msg = values[1];*/
+                msg.add(values[1]+">>"+values[2]);
+                msgadapter.notifyDataSetChanged();
+                msg_listview.setSelection(msg.size() - 1);
+            }
+          /*  ChatMessage message = new ChatMessage();
+            message.nickname = values[0];
+            message.msg = values[1];
+            msg.add(message);
+            adapter.notifyDataSetChanged();
+            msg_listview.setSelection(msg.size() - 1);*/
         }
     }
 
